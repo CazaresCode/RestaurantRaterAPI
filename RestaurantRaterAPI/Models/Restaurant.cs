@@ -33,6 +33,12 @@ namespace RestaurantRaterAPI.Models
             }
         }
 
+        // Could add the following prop:
+        //AvgFoodScore
+        //AvgEnironmentScore
+        //AvgCleanlinessScore
+
+
         public bool IsRecommended => Rating > 8.5; // same as opening up the get and returning this condition. 
     }
 }

@@ -21,6 +21,7 @@ namespace RestaurantRaterAPI.Controllers
             {
                 return BadRequest("Your request body cannot be empy.");
             }
+
             if (ModelState.IsValid) // Assuring all required properities are present or VALID in this case. //ModelState is part of the API Controller.
             {
                 _context.Restaurants.Add(model); // Adding it to the database.
@@ -28,6 +29,7 @@ namespace RestaurantRaterAPI.Controllers
 
                 return Ok(); // This is the 200 status code, hence feedback to the user saying it was successful.
             }
+
             return BadRequest(ModelState);
         }
 
