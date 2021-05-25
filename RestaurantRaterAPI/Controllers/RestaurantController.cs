@@ -1,6 +1,7 @@
 ﻿using RestaurantRaterAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,7 +14,8 @@ namespace RestaurantRaterAPI.Controllers
     {
         private RestaurantDbContext _context = new RestaurantDbContext();
 
-        public async Task<IHttpActionResult> PostRestaurant(Restaurant model)
+        [HttpPost] // not needy but it is nice. 
+        public async Task<IHttpActionResult> PostRestaurant(Restaurant model) // POST in the naming convention because it is part of the API thing, remember!?
         {
             if (model == null) // But this condition in first because it could be null.
             {
@@ -28,5 +30,31 @@ namespace RestaurantRaterAPI.Controllers
             }
             return BadRequest(ModelState);
         }
+
+        // GetAll
+        [HttpGet]
+        public async Task<IHttpActionResult> GetAll()
+        {
+            List<Restaurant> restaurants = await _context.Restaurants.ToListAsync(); // turned the whole restaurants into a list and returned it.
+            return Ok(restaurants);
+        }
+
+        // GetByID
+        [HttpGet]
+        public async Task<IHttpActionResult> GetById(int id)
+        {
+            Restaurant restaurant = await _context.Restaurants.FindAsync(id); // Built-in method.
+            if (restaurant != null)
+            {
+                return Ok(restaurant);
+            }
+            return NotFound();
+        }
+
+
+        // Update(PUT)
+
+
+        // Delete
     }
 }
