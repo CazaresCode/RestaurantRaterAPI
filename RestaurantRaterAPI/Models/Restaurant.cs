@@ -19,7 +19,7 @@ namespace RestaurantRaterAPI.Models
 
         public virtual List<Rating> Ratings { get; set; } = new List<Rating>(); // Holds all the rating objects of the restaurant it is tied to.
 
-        public double Rating // Average rating of the restaurant from ALL the ratings. 
+        public double AverageOverallRating // Average rating of the restaurant from ALL the ratings. 
         {
             get
             {
@@ -27,18 +27,61 @@ namespace RestaurantRaterAPI.Models
 
                 foreach (Rating rating in Ratings)
                 {
-                    totalAverageRating += rating.AverageRating;
+                    totalAverageRating += rating.TotatlAvgRating;
                 }
+
                 return totalAverageRating / Ratings.Count;
             }
         }
 
-        // Could add the following prop:
         //AvgFoodScore
-        //AvgEnironmentScore
+        public double AverageFoodScore
+        {
+            get
+            {
+                double totalAvg = 0;
+
+                foreach (Rating allRatings in Ratings)
+                {
+                    totalAvg += allRatings.FoodScore;
+                }
+
+                return totalAvg / Ratings.Count;
+            }
+        }
+
+        //AvgEnvironmentScore
+        public double AverageEnviromentScore
+        {
+            get
+            {
+                double totalAvg = 0;
+
+                foreach (Rating allRatings in Ratings)
+                {
+                    totalAvg += allRatings.EnvironmentScore;
+                }
+
+                return totalAvg / Ratings.Count;
+            }
+        }
+
         //AvgCleanlinessScore
+        public double AverageCleanlinesstScore
+        {
+            get
+            {
+                double totalAvg = 0;
 
+                foreach (Rating allRatings in Ratings)
+                {
+                    totalAvg += allRatings.CleanlinessScore;
+                }
 
-        public bool IsRecommended => Rating > 8.5; // same as opening up the get and returning this condition. 
+                return totalAvg / Ratings.Count;
+            }
+        }
+
+        public bool IsRecommended => AverageOverallRating > 8.5; // same as opening up the get and returning this condition. 
     }
 }

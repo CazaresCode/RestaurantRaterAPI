@@ -37,18 +37,8 @@ namespace RestaurantRaterAPI.Controllers
             return InternalServerError();
         }
 
-        // Get All Ratings 
-        [HttpGet]
-        public async Task<IHttpActionResult> GetAllRatings()
-        {
-            List<Rating> ratings = await _context.Ratings.ToListAsync();
-            return Ok(ratings);
-        }
-
-        //Get Rating By ID
-
-
-        // Get Rating By Restaurant (if you want to...)
+        // Get All Ratings REDUNDANT
+        // Get Rating By Restaurant REDUNDANT
 
         // Update
         [HttpPut]

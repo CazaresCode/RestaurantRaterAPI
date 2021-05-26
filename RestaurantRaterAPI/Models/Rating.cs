@@ -7,7 +7,7 @@ using System.Web;
 
 namespace RestaurantRaterAPI.Models
 {
-    public class Rating
+    public class Rating // Rating Entity
     {
         [Key] // using statement: DataAnnotations;
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace RestaurantRaterAPI.Models
         [Required]
         [Range(0, 10)]
         public double FoodScore { get; set; }
-        
+
         [Required]
         [Range(0, 10)]
         public double EnvironmentScore { get; set; }
@@ -27,13 +27,15 @@ namespace RestaurantRaterAPI.Models
         [Required]
         [Range(0, 10)]
         public double CleanlinessScore { get; set; }
-        
-        public double AverageRating 
+
+        public double TotatlAvgRating
         {
             get
             {
                 return (FoodScore + EnvironmentScore + CleanlinessScore) / 3; // Could do lamba =>
             }
         }
+
+        public virtual List<Rating> ListOfRatings { get; set; } = new List<Rating>();
     }
 }
