@@ -94,5 +94,9 @@ namespace RestaurantRaterAPI.Controllers
 
             return InternalServerError();
         }
+
+        // GetAllRecommendedRestaurants
+        // HINT: [Route]
+        // Remember that the method is empty and would need to be differentated on how to do it. 
     }
 }
