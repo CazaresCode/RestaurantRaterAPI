@@ -40,6 +40,28 @@ namespace RestaurantRaterAPI.Controllers
         // Get Rating By Restaurant (if you want to...)
 
         // Update
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdateRating(int id, Rating updateRating)
+        {
+            if (ModelState.IsValid)
+            {
+                Rating rating = await _context.Ratings.FindAsync(id);
+
+                if (rating != null)
+                {
+                    rating.FoodScore = updateRating.FoodScore;
+                    rating.EnvironmentScore = updateRating.EnvironmentScore;
+                    rating.CleanlinessScore = updateRating.CleanlinessScore;
+
+                    await _context.SaveChangesAsync();
+                    return Ok($"You successfully updated your rating.");
+                }
+                
+                return NotFound();
+            }
+
+            return BadRequest();
+        }
 
         // Delete
 
