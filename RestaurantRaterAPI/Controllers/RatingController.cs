@@ -55,13 +55,14 @@ namespace RestaurantRaterAPI.Controllers
                     rating.CleanlinessScore = updateRating.CleanlinessScore;
 
                     await _context.SaveChangesAsync();
+
                     return Ok($"You successfully updated your rating.");
                 }
 
                 return NotFound();
             }
 
-            return BadRequest();
+            return BadRequest(ModelState);
         }
 
         // Delete
@@ -76,6 +77,7 @@ namespace RestaurantRaterAPI.Controllers
             }
 
             _context.Ratings.Remove(rating);
+
             if (await _context.SaveChangesAsync() == 1)
             {
                 return Ok("The rating was successfully deleted.");

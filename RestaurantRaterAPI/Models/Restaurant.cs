@@ -46,7 +46,7 @@ namespace RestaurantRaterAPI.Models
                     totalAvg += allRatings.FoodScore;
                 }
 
-                return totalAvg / Ratings.Count;
+                return (Ratings.Count > 0) ? totalAvg / Ratings.Count : 0;
             }
         }
 
@@ -55,14 +55,11 @@ namespace RestaurantRaterAPI.Models
         {
             get
             {
-                double totalAvg = 0;
+                IEnumerable<double> scores = Ratings.Select(rating => rating.EnvironmentScore);
 
-                foreach (Rating allRatings in Ratings)
-                {
-                    totalAvg += allRatings.EnvironmentScore;
-                }
+                double totalEnScore = scores.Sum();
 
-                return totalAvg / Ratings.Count;
+                return (Ratings.Count > 0) ? totalEnScore / Ratings.Count() : 0;
             }
         }
 
@@ -71,14 +68,8 @@ namespace RestaurantRaterAPI.Models
         {
             get
             {
-                double totalAvg = 0;
-
-                foreach (Rating allRatings in Ratings)
-                {
-                    totalAvg += allRatings.CleanlinessScore;
-                }
-
-                return totalAvg / Ratings.Count;
+                var totalScore = Ratings.Select(r => r.CleanlinessScore).Sum();
+                return (Ratings.Count > 0) ? totalScore / Ratings.Count() : 0;
             }
         }
 

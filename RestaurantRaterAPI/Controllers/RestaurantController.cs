@@ -72,7 +72,7 @@ namespace RestaurantRaterAPI.Controllers
                 }
                 return NotFound();
             }
-            return BadRequest();
+            return BadRequest(ModelState);
         }
 
         // Delete
@@ -98,5 +98,42 @@ namespace RestaurantRaterAPI.Controllers
         // GetAllRecommendedRestaurants
         // HINT: [Route]
         // Remember that the method is empty and would need to be differentated on how to do it. 
+
+        [HttpGet, Route("api/Restaurant/IsRecommended")]
+        public async Task<IHttpActionResult> GetRestaurantsByIsRecommended()
+        {
+            //List<Restaurant> restaurants = await _context.Restaurants.ToListAsync();
+            //List<Restaurant> recommendedRestaurants = new List<Restaurant>();
+
+            //// Doesn't work below because we removing restaurants... so had to new up a new list.
+            ////foreach (Restaurant restaurant in restaurants)
+            ////{
+            ////    if (restaurant.IsRecommended == false)
+            ////    {
+            ////        restaurants.Remove(restaurant);
+            ////    }
+            ////}
+
+            //foreach (Restaurant restaurant in restaurants)
+            //{
+            //    if (restaurant.IsRecommended)
+            //    {
+            //        recommendedRestaurants.Add(restaurant);
+            //    }
+            //}
+
+            //if (recommendedRestaurants.Count < 1)
+            //{
+            //    return NotFound();
+            //}
+
+            //return Ok(recommendedRestaurants);
+
+
+            //This is the same as ABOVE in LINQ                       Similar to Foreach Loop... for each restaurant (r) in our collection, => for each that is true from IsRecommended, to put them in one step.    
+            // Had to put ToList after the Restaurants so we can find what restaurant is recommended. REMEMBER that IsRecommended is a READONLY prop. To work around that, you need to put it in a list before.
+            List<Restaurant> restuarants =  _context.Restaurants.ToList().Where(r => r.IsRecommended).ToList();
+            return Ok(restuarants);
+        }
     }
 }
